@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -37,12 +38,29 @@ export default function Header() {
   const headerBg = (!isHomePage || isScrolled) ? 'bg-white/90 backdrop-blur-md shadow-sm' : 'bg-transparent';
   const textColor = (isHomePage && !isScrolled && !isMobileMenuOpen) ? 'text-white' : 'text-renaissance-blue-dark';
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('keydown', onKey);
+      // prevent body scroll when menu open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out py-6 px-8 lg:px-16 ${headerBg} ${introActive && isHomePage ? 'opacity-0 pointer-events-none' : ''}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out py-6 px-8 lg:px-16 ${headerBg} ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : (introActive && isHomePage ? 'opacity-0 pointer-events-none' : '')}`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link to="/" className={`transition-colors duration-500 ${textColor} relative z-[60]`}>
@@ -68,7 +86,8 @@ export default function Header() {
 
         {/* Mobile Nav Toggle */}
         <button 
-          className={`md:hidden relative z-[60] p-2 -mr-2 ${textColor}`}
+          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+          className={`md:hidden relative ${isMobileMenuOpen ? 'z-[80]' : 'z-[60]'} p-2 -mr-2 ${textColor}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <div className="w-6 h-4 relative flex flex-col justify-between">
@@ -78,21 +97,28 @@ export default function Header() {
           </div>
         </button>
 
-        {/* Mobile Menu Overlay */}
-        <div className={`fixed inset-0 bg-white z-50 flex flex-col justify-center items-center transition-all duration-700 ease-[0.16,1,0.3,1] ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-          <nav className="flex flex-col gap-8 text-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="font-serif text-3xl text-renaissance-blue-dark hover:text-renaissance-gold transition-colors duration-300"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
+        {/* Mobile Menu Overlay (rendered into body to avoid header transform stacking context) */}
+        {typeof document !== 'undefined' && createPortal(
+          <div
+            className={`fixed inset-0 bg-white z-[70] flex flex-col justify-center items-center transition-all duration-700 ease-[0.16,1,0.3,1] ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden={!isMobileMenuOpen}
+          >
+            <nav className="flex flex-col gap-8 text-center" onClick={(e) => e.stopPropagation()}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="font-serif text-3xl text-renaissance-blue-dark hover:text-renaissance-gold transition-colors duration-300"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+          </div>,
+          document.body
+        )}
       </div>
     </motion.header>
   );

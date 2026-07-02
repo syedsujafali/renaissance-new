@@ -5,6 +5,7 @@ import { allPageImages } from '../utils/imageLibrary';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Inform other components about intro visibility (so header can hide while active)
   useEffect(() => {
@@ -21,6 +22,19 @@ export default function Home() {
     const fallback = window.setTimeout(() => setShowIntro(false), 10000);
     return () => window.clearTimeout(fallback);
   }, [showIntro]);
+
+  // Detect mobile and disable intro video on small screens
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // If on mobile, skip the intro immediately
+  useEffect(() => {
+    if (isMobile && showIntro) setShowIntro(false);
+  }, [isMobile, showIntro]);
 
   return (
     <motion.div
