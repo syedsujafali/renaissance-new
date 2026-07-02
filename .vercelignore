@@ -2,6 +2,5 @@ node_modules
 .git
 .github
 dist
-public/images/**/*.mp4
 *.log
 .cache

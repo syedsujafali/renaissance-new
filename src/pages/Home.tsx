@@ -48,7 +48,7 @@ export default function Home() {
               onEnded={() => setShowIntro(false)}
               onError={() => setShowIntro(false)}
             >
-              <source src="/images/loader chng.mp4" type="video/mp4" />
+              <source src="/images/loader.mp4" type="video/mp4" />
             </video>
           </motion.div>
         )}
