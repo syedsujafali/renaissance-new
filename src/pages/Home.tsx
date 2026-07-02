@@ -31,7 +31,7 @@ export default function Home() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: '-100%' }}
             transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] bg-renaissance-blue flex flex-col items-center justify-center text-white overflow-hidden"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center text-white overflow-hidden"
           >
             <video
               autoPlay
@@ -41,9 +41,8 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover"
               onEnded={() => setShowIntro(false)}
             >
-              <source src="/images/loader.mp4" type="video/mp4" />
+              <source src="/images/loader chng.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-renaissance-blue/45" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -118,7 +117,7 @@ export default function Home() {
            whileInView={{ scale: 1 }}
            viewport={{ once: true }}
            transition={{ duration: 1.5 }}
-           src="/images/13-1.jpg"
+           src="/images/2.jpeg"
            alt="Elegant Event Details"
            className="absolute inset-0 w-full h-full object-cover opacity-90"
            loading="lazy"

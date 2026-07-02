@@ -12,7 +12,8 @@ const images = [
   { src: allPageImages[6].src, alt: 'Production Setup', category: 'Production' },
   { src: allPageImages[7].src, alt: 'Beard Group Table', category: 'Corporate' },
   { src: allPageImages[8].src, alt: 'Large Scale Layout', category: 'Corporate' },
-  { src: allPageImages[9].src, alt: 'Conference Setup', category: 'Corporate' }
+  { src: allPageImages[9].src, alt: 'Conference Setup', category: 'Corporate' },
+  { src: allPageImages[2].src, alt: 'Artistic Gala Moment', category: 'Gala' }
 ];
 
 export default function Portfolio() {

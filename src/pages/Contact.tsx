@@ -12,7 +12,7 @@ export default function Contact() {
     >
       <div className="absolute inset-0 z-0 h-[60vh] bg-renaissance-blue-dark">
         <img 
-          src="/images/17-1.jpg"
+          src="/images/5.jpeg"
           alt="Contact Background"
           className="w-full h-full object-cover"
           loading="lazy"
@@ -102,7 +102,7 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl md:text-4xl text-renaissance-blue-dark mb-10 text-center">Recent highlights</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allPageImages.slice(17, 25).map((image, index) => (
+            {[...allPageImages.slice(17, 25), allPageImages[2]].map((image, index) => (
               <img
                 key={`${image.src}-${index}`}
                 src={image.src}
