@@ -16,6 +16,12 @@ export default function Home() {
     };
   }, [showIntro]);
 
+  useEffect(() => {
+    if (!showIntro) return;
+    const fallback = window.setTimeout(() => setShowIntro(false), 10000);
+    return () => window.clearTimeout(fallback);
+  }, [showIntro]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -40,8 +46,9 @@ export default function Home() {
               preload="auto"
               className="absolute inset-0 w-full h-full object-cover"
               onEnded={() => setShowIntro(false)}
+              onError={() => setShowIntro(false)}
             >
-              <source src="/images/loader chng.mp4" type="video/mp4" />
+              <source src="/images/loader.mp4" type="video/mp4" />
             </video>
           </motion.div>
         )}
