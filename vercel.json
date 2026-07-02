@@ -3,12 +3,6 @@
     { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
   ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html",
-      "has": [
-        { "type": "missing", "key": "file" }
-      ]
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
