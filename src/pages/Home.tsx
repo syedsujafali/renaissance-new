@@ -1,176 +1,82 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { allPageImages } from '../utils/imageLibrary';
+import Hero from '../components/Hero';
+import HorizontalImageScroller from '../components/HorizontalImageScroller';
+
+const featuredHighlights = [
+  { title: 'Global Brand Activations', text: 'From launches to national campaigns, every experience is built to feel elevated and unmistakably on-brand.' },
+  { title: 'Executive Gatherings', text: 'Thoughtful production, refined hospitality, and a calm sense of control from first impression to final toast.' },
+  { title: 'Luxury Hospitality', text: 'Detail-driven planning, exceptional service, and beautifully orchestrated guest journeys.' },
+  { title: 'Large-Scale Production', text: 'Cinematic storytelling and technical precision for events that reach thousands with impact.' }
+];
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Inform other components about intro visibility (so header can hide while active)
-  useEffect(() => {
-    (window as any).__introActive = showIntro;
-    window.dispatchEvent(new CustomEvent('intro-state', { detail: { showIntro } }));
-    return () => {
-      (window as any).__introActive = false;
-      window.dispatchEvent(new CustomEvent('intro-state', { detail: { showIntro: false } }));
-    };
-  }, [showIntro]);
-
-  useEffect(() => {
-    if (!showIntro) return;
-    const fallback = window.setTimeout(() => setShowIntro(false), 10000);
-    return () => window.clearTimeout(fallback);
-  }, [showIntro]);
-
-  // Detect mobile and disable intro video on small screens
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 768);
-    onResize();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  // If on mobile, skip the intro immediately
-  useEffect(() => {
-    if (isMobile && showIntro) setShowIntro(false);
-  }, [isMobile, showIntro]);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="bg-white min-h-screen"
+      className="min-h-screen bg-[#f7f9fc] text-slate-800"
     >
-      <AnimatePresence>
-        {showIntro && (
-          <motion.div
-            key="intro"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: '-100%' }}
-            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center text-white overflow-hidden"
-          >
-            <video
-              autoPlay
-              muted
-              playsInline
-              preload="auto"
-              className="absolute inset-0 w-full h-full object-cover"
-              onEnded={() => setShowIntro(false)}
-              onError={() => setShowIntro(false)}
-            >
-              <source src="/images/loader.mp4" type="video/mp4" />
-            </video>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Hero />
 
-      <section className="relative h-screen w-full overflow-hidden bg-renaissance-blue-dark">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/images/hero.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-renaissance-blue-dark/60 via-renaissance-blue-dark/30 to-renaissance-blue-dark/80 mix-blend-multiply z-10"></div>
-
-        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <div className="text-center px-6 max-w-4xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 4.0, ease: 'easeOut' }}
-              className="font-serif text-white text-5xl md:text-7xl lg:text-8xl mb-8 leading-tight tracking-wide"
-            >
-              Unforgettable <br/>
-              <span className="italic text-renaissance-gold/90 font-light">Luxury Events</span>
-            </motion.h2>
-            
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 4.5 }}
-              className="pointer-events-auto"
-            >
-              <Link 
-                to="/portfolio" 
-                className="inline-block border border-white/40 text-white px-10 py-4 uppercase tracking-[0.15em] text-sm hover:bg-white hover:text-renaissance-blue-dark transition-all duration-500 backdrop-blur-sm"
-              >
-                View Our Portfolio
-              </Link>
-            </motion.div>
+      <section className="px-6 py-20 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-full space-y-10">
+          <div className="rounded-[2rem] border border-sky-900/10 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:p-12">
+            <div className="space-y-6">
+              <p className="text-xs uppercase tracking-[0.35em] text-sky-700">Signature Work</p>
+              <h2 className="font-serif text-4xl leading-tight text-slate-800 md:text-5xl">We create refined events that feel effortless, elevated, and deeply memorable.</h2>
+              <p className="max-w-2xl leading-relaxed text-slate-600">From intimate executive gatherings to large-scale productions, our approach blends creativity, precision, and hospitality into unforgettable guest experiences.</p>
+              <div className="flex flex-wrap gap-4">
+                <Link to="/portfolio" className="inline-flex items-center justify-center rounded-full border border-sky-700 bg-sky-700 px-8 py-3 text-sm uppercase tracking-[0.25em] text-white transition hover:bg-sky-800">View Portfolio</Link>
+                <Link to="/about" className="inline-flex items-center justify-center rounded-full border border-sky-900/10 bg-sky-50 px-8 py-3 text-sm uppercase tracking-[0.25em] text-sky-700 transition hover:bg-sky-100">Our Story</Link>
+              </div>
+            </div>
           </div>
+          
+          <HorizontalImageScroller
+            images={allPageImages.slice(0, 10)}
+            title="Recent Work"
+            subtitle="A collection of our finest event experiences."
+          />
         </div>
       </section>
 
-      {/* Featured About Snippet */}
-      <section className="py-32 px-8 lg:px-16 bg-white text-center">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h3 className="font-serif text-3xl md:text-5xl text-renaissance-blue-dark leading-relaxed mb-10">
-              Transforming visionary concepts into spectacular realities for the world's most discerning brands.
-            </h3>
-            <Link to="/about" className="text-sm uppercase tracking-widest text-renaissance-gold font-medium border-b border-renaissance-gold pb-1 hover:text-renaissance-blue-dark hover:border-renaissance-blue-dark transition-colors duration-300">
-              Discover Our Story
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Elegant Image Section */}
-      <section className="h-[70vh] w-full relative overflow-hidden bg-renaissance-blue-dark">
-        <motion.img
-           initial={{ scale: 1.1 }}
-           whileInView={{ scale: 1 }}
-           viewport={{ once: true }}
-           transition={{ duration: 1.5 }}
-           src="/images/2.jpeg"
-           alt="Elegant Event Details"
-           className="absolute inset-0 w-full h-full object-cover opacity-90"
-           loading="lazy"
-        />
-      </section>
-
-      <section className="py-24 px-8 lg:px-16 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-sm uppercase tracking-[0.3em] text-renaissance-gold mb-4">Featured Work</p>
-            <h3 className="font-serif text-3xl md:text-4xl text-renaissance-blue-dark mb-4">Moments shaped with movement, light, and precision.</h3>
-            <p className="text-slate-600 max-w-2xl mx-auto">A curated look at the imagery and atmosphere that define Renaissance events.</p>
+      <section className="px-6 pb-20 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <p className="mb-4 text-sm uppercase tracking-[0.35em] text-sky-700">Featured Services</p>
+            <h3 className="mb-4 font-serif text-3xl text-slate-800 md:text-4xl">Crafted experiences rooted in beauty, clarity, and calm confidence.</h3>
+            <p className="mx-auto max-w-2xl text-slate-600">A refined selection of design direction, technical production, hospitality, and guest experience planning tailored for prestige events.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allPageImages.slice(0, 9).map((image, index) => (
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {featuredHighlights.map((item) => (
               <motion.div
-                key={`${image.src}-${index}`}
-                initial={{ opacity: 0, y: 24 }}
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                whileHover={{ scale: 1.02, y: -6, rotate: -1 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="overflow-hidden rounded-[1.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
+                transition={{ duration: 0.8 }}
+                className="rounded-[2rem] border border-sky-900/10 bg-white p-8 shadow-[0_16px_50px_rgba(15,23,42,0.05)]"
               >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-72 object-cover"
-                  loading={index < 3 ? 'eager' : 'lazy'}
-                />
+                <h4 className="mb-3 text-xl font-semibold text-slate-800">{item.title}</h4>
+                <p className="leading-relaxed text-slate-600">{item.text}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-24 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-sky-900/10 bg-sky-50 p-8 md:p-10">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-3 text-xs uppercase tracking-[0.35em] text-sky-700">Client Experience</p>
+              <h3 className="font-serif text-3xl text-slate-800">A thoughtful process from first conversation to final reveal.</h3>
+            </div>
+            <button className="rounded-full border border-sky-700/20 bg-white px-6 py-3 text-sm uppercase tracking-[0.25em] text-sky-700 transition hover:bg-sky-100">Cookie Settings</button>
           </div>
         </div>
       </section>

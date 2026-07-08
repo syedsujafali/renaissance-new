@@ -4,21 +4,53 @@
   --font-sans: "Inter", sans-serif;
   --font-serif: "Playfair Display", serif;
 
-  --color-renaissance-blue: #002b5c;
-  --color-renaissance-blue-light: #003b7e;
-  --color-renaissance-blue-dark: #001f40;
-  --color-renaissance-gold: #d4af37;
-  --color-renaissance-gold-light: #e6c55c;
-  --color-renaissance-offwhite: #faf9f6;
-  --color-renaissance-gray: #f3f4f6;
+  --color-bg: #f4f7fb;
+  --color-surface: rgba(255, 255, 255, 0.94);
+  --color-surface-strong: rgba(255, 255, 255, 0.98);
+  --color-accent: #1f4f8b;
+  --color-accent-soft: #6ea8d9;
+  --color-text: #10243d;
+  --color-muted: #5f6f84;
 }
 
 @layer base {
-  body {
-    @apply font-sans bg-renaissance-offwhite text-slate-800 antialiased overflow-x-hidden;
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif text-renaissance-blue-dark;
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased overflow-x-hidden;
+    color: var(--color-text);
+    background: linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
+    min-height: 100vh;
+  }
+
+  a {
+    @apply transition-colors duration-300;
+  }
+
+  button, input, textarea {
+    font: inherit;
+  }
+
+  ::selection {
+    background: rgba(31, 79, 139, 0.2);
+    color: #10243d;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(31, 79, 139, 0.1);
+  }
+
+  .soft-shadow {
+    box-shadow: 0 20px 70px rgba(16, 36, 61, 0.08);
   }
 }

@@ -4,9 +4,10 @@ import Footer from './Footer';
 
 export default function Layout() {
   return (
-    <div className="min-h-screen flex flex-col bg-renaissance-offwhite selection:bg-renaissance-blue selection:text-white">
+    <div className="relative min-h-screen overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(31,79,139,0.08),transparent_22%),radial-gradient(circle_at_80%_18%,rgba(110,168,217,0.08),transparent_20%)]" />
       <Header />
-      <main className="flex-grow flex flex-col w-full">
+      <main className="relative flex-grow pt-28">
         <Outlet />
       </main>
       <Footer />

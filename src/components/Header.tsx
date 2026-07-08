@@ -1,124 +1,76 @@
-import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+const navLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  { name: 'Portfolio', path: '/portfolio' },
+  { name: 'Get in Touch', path: '/contact' }
+];
+
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [introActive, setIntroActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    const onIntro = (e: any) => setIntroActive(Boolean(e?.detail?.showIntro));
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('intro-state', onIntro as EventListener);
-
-    // initial check in case Home already set the flag
-    if ((window as any).__introActive) setIntroActive(true);
-
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('intro-state', onIntro as EventListener);
-    };
-  }, []);
-
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Get in Touch', path: '/contact' }
-  ];
-
-  const headerBg = (!isHomePage || isScrolled) ? 'bg-white/90 backdrop-blur-md shadow-sm' : 'bg-transparent';
-  const textColor = (isHomePage && !isScrolled && !isMobileMenuOpen) ? 'text-white' : 'text-renaissance-blue-dark';
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMobileMenuOpen(false);
-    };
-
-    if (isMobileMenuOpen) {
-      document.addEventListener('keydown', onKey);
-      // prevent body scroll when menu open
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
-  }, [isMobileMenuOpen]);
+  }, [isOpen]);
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out py-6 px-8 lg:px-16 ${headerBg} ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : (introActive && isHomePage ? 'opacity-0 pointer-events-none' : '')}`}
+      initial={{ y: -120, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-x-0 top-0 z-50 border-b border-sky-900/10 bg-white/90 px-6 py-5 backdrop-blur-xl"
     >
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className={`transition-colors duration-500 ${textColor} relative z-[60]`}>
-          <img
-            src="/images/logo%20(1).png"
-            alt="Renaissance logo"
-            className="h-10 w-auto object-contain md:h-12"
-          />
+      <div className="mx-auto flex max-w-full items-center justify-between gap-6">
+        <Link to="/" className="flex items-center gap-3 text-slate-800">
+          
+            <img src="/images/logo%20(1).png" alt="Renaissance logo" className="h-full w-full object-cover" />
+         
+          
         </Link>
-        
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-10 items-center">
+
+        <nav className="hidden items-center gap-8 text-sm uppercase tracking-[0.3em] text-slate-600 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
-              className={`text-sm tracking-widest uppercase font-medium transition-colors duration-300 hover:text-renaissance-gold ${textColor} ${location.pathname === link.path ? 'opacity-100' : 'opacity-70'}`}
+              className={`${location.pathname === link.path ? 'text-sky-700' : 'hover:text-sky-700'} transition-colors duration-300`}
             >
               {link.name}
             </Link>
           ))}
         </nav>
 
-        {/* Mobile Nav Toggle */}
-        <button 
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-          className={`md:hidden relative ${isMobileMenuOpen ? 'z-[80]' : 'z-[60]'} p-2 -mr-2 ${textColor}`}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-sky-900/10 bg-white text-slate-700 transition hover:border-sky-700/20 md:hidden"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
         >
-          <div className="w-6 h-4 relative flex flex-col justify-between">
-            <span className={`w-full h-[1px] bg-current transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-[7.5px]' : ''}`} />
-            <span className={`w-full h-[1px] bg-current transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`w-full h-[1px] bg-current transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-[7.5px]' : ''}`} />
-          </div>
+          <span className={`${isOpen ? 'rotate-45 translate-y-[1px]' : 'translate-y-0'} block h-[1px] w-5 bg-slate-700 transition-transform duration-300`} />
+          <span className={`${isOpen ? 'opacity-0' : 'opacity-100'} absolute h-[1px] w-5 bg-slate-700 transition-opacity duration-300`} />
+          <span className={`${isOpen ? '-rotate-45 -translate-y-[1px]' : 'translate-y-0'} block h-[1px] w-5 bg-slate-700 transition-transform duration-300`} />
         </button>
+      </div>
 
-        {/* Mobile Menu Overlay (rendered into body to avoid header transform stacking context) */}
-        {typeof document !== 'undefined' && createPortal(
-          <div
-            className={`fixed inset-0 bg-white z-[70] flex flex-col justify-center items-center transition-all duration-700 ease-[0.16,1,0.3,1] ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-            onClick={() => setIsMobileMenuOpen(false)}
-            aria-hidden={!isMobileMenuOpen}
-          >
-            <nav className="flex flex-col gap-8 text-center" onClick={(e) => e.stopPropagation()}>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-serif text-3xl text-renaissance-blue-dark hover:text-renaissance-gold transition-colors duration-300"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-          </div>,
-          document.body
-        )}
+      <div className={`absolute inset-x-6 top-full mt-4 rounded-3xl border border-sky-900/10 bg-white p-6 shadow-[0_20px_60px_rgba(16,36,61,0.12)] transition-all duration-500 md:hidden ${isOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-3 opacity-0'}`}>
+        <nav className="flex flex-col gap-5">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              onClick={() => setIsOpen(false)}
+              className={`text-lg font-semibold tracking-[0.2em] ${location.pathname === link.path ? 'text-sky-700' : 'text-slate-600 hover:text-sky-700'}`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
       </div>
     </motion.header>
   );

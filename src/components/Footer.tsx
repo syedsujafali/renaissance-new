@@ -1,50 +1,39 @@
 import { Link } from 'react-router-dom';
-import { FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-renaissance-blue-dark text-white py-20 px-8 lg:px-16 mt-auto">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24">
-        <div className="md:col-span-2">
-          <Link to="/" className="font-serif text-3xl tracking-widest uppercase mb-6 block">
-            Renaissance
-          </Link>
-          <p className="text-white/60 font-light max-w-sm leading-relaxed mb-8">
-            Where creativity begins. Designing luxury corporate events and unforgettable experiences.
-          </p>
-          <div className="flex gap-6">
-            <a href="#" className="text-white/60 hover:text-renaissance-gold transition-colors"><FaInstagram size={20} /></a>
-            <a href="#" className="text-white/60 hover:text-renaissance-gold transition-colors"><FaLinkedinIn size={20} /></a>
-            <a href="#" className="text-white/60 hover:text-renaissance-gold transition-colors"><FaTwitter size={20} /></a>
-          </div>
+    <footer className="relative overflow-hidden px-6 py-24 lg:px-16">
+      <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-sky-200/50 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-24 h-56 w-56 rounded-full bg-sky-100 blur-3xl" />
+
+      <div className="relative mx-auto grid max-w-full gap-14 lg:grid-cols-[2fr_1fr_1fr]">
+        <div className="glass-panel rounded-[2rem] border border-sky-900/10 p-10 soft-shadow">
+          <p className="mb-4 text-xs uppercase tracking-[0.35em] text-sky-700">Stay inspired</p>
+          <h2 className="mb-6 font-serif text-4xl text-slate-800">Let’s create something unforgettable together.</h2>
+          <p className="leading-relaxed text-slate-600">A calm, intentional approach to event design with elevated hospitality and memorable atmosphere.</p>
         </div>
-        
-        <div>
-          <h4 className="font-serif text-xl mb-6 tracking-wide text-renaissance-gold">Explore</h4>
-          <ul className="flex flex-col gap-4 font-light text-white/70">
-            <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-            <li><Link to="/portfolio" className="hover:text-white transition-colors">Portfolio</Link></li>
-            <li><Link to="/contact" className="hover:text-white transition-colors">Get in Touch</Link></li>
+
+        <div className="rounded-[2rem] border border-sky-900/10 bg-white p-8">
+          <h3 className="mb-6 font-serif text-xl text-sky-700">Navigation</h3>
+          <ul className="space-y-3 text-sm text-slate-600">
+            <li><Link to="/" className="hover:text-sky-700">Home</Link></li>
+            <li><Link to="/about" className="hover:text-sky-700">About</Link></li>
+            <li><Link to="/portfolio" className="hover:text-sky-700">Portfolio</Link></li>
+            <li><Link to="/contact" className="hover:text-sky-700">Get in Touch</Link></li>
           </ul>
         </div>
-        
-        <div>
-          <h4 className="font-serif text-xl mb-6 tracking-wide text-renaissance-gold">Contact</h4>
-          <ul className="flex flex-col gap-4 font-light text-white/70">
-            <li>hello@renaissance-events.com</li>
-            <li>+1 (800) 555-0199</li>
-            <li>New York • London • Paris</li>
-          </ul>
+
+        <div className="rounded-[2rem] border border-sky-900/10 bg-white p-8">
+          <h3 className="mb-6 font-serif text-xl text-sky-700">Connect</h3>
+          <p className="mb-6 text-sm leading-relaxed text-slate-600">hello@renaissance-events.com</p>
+          <p className="mb-6 text-sm leading-relaxed text-slate-600">+1 (800) 555-0199</p>
+          <p className="text-sm leading-relaxed text-slate-600">New York • London • Paris</p>
         </div>
       </div>
-      
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-light text-white/40 tracking-wider">
-        <p>&copy; {new Date().getFullYear()} Renaissance Meetings & Special Events. All rights reserved.</p>
-        <div className="flex gap-6">
-          <button className="hover:text-white transition-colors cursor-pointer">Cookie Settings</button>
-          <button className="hover:text-white transition-colors cursor-pointer">Privacy Policy</button>
-        </div>
+
+      <div className="relative mx-auto mt-16 flex max-w-full flex-col gap-4 border-t border-sky-900/10 pt-8 text-xs text-slate-500 sm:flex-row sm:justify-between">
+        <p>© {new Date().getFullYear()} Renaissance Meetings & Special Events.</p>
+        <p>Designed for immersive experiences.</p>
       </div>
     </footer>
   );
