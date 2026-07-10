@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const videoSrc = encodeURI('/images/0708 (1)(1).mp4');
+const videoSrc = encodeURI('/images/final.mp4');
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -25,8 +25,6 @@ export default function Hero() {
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <div className="absolute inset-0 bg-black/40" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/75" />
 
       <div className="absolute right-6 bottom-6 z-50">
         <button
@@ -70,20 +68,8 @@ export default function Hero() {
           className="mx-auto max-w-full space-y-8 text-center"
         >
           
-          <h1 className="font-serif text-5xl leading-tight tracking-tight text-white whitespace-nowrap md:text-7xl xl:text-8xl">
-            Where <span className="text-sky-200">Creativity Begins</span>.
-          </h1>
-          <p className="mx-auto max-w-3xl text-right text-lg leading-relaxed text-white/80">
-            For three decades, Renaissance has created elevated meetings and special events for global brands, associations, sports organizations, nonprofits, and visionary leaders.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="/portfolio"
-              className="inline-flex items-center justify-center rounded-full border border-sky-200 bg-sky-200/15 px-8 py-3 text-sm uppercase tracking-[0.3em] text-sky-100 shadow-soft-shadow transition hover:bg-sky-200/25"
-            >
-              Explore Portfolio
-            </a>
-          </div>
+          
+          
         </motion.div>
 
         
