@@ -109,7 +109,7 @@ function PortfolioStory({ item, index, isReverse }: { item: PortfolioItem; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className={`flex flex-col overflow-hidden rounded-[2rem] border border-stone-200/70 bg-[#fcfbf8] p-4 shadow-[0_22px_70px_rgba(17,24,39,0.04)] sm:p-6 lg:flex-row lg:items-stretch lg:gap-0 lg:p-0 ${isReverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
+      className={`flex flex-col overflow-hidden rounded-[2rem] border border-stone-200/70 bg-white p-4 shadow-[0_22px_70px_rgba(17,24,39,0.04)] sm:p-6 lg:flex-row lg:items-stretch lg:gap-0 lg:p-0 ${isReverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
     >
       <motion.figure
         initial={{ opacity: 0, scale: 1.04 }}
@@ -137,7 +137,7 @@ function PortfolioStory({ item, index, isReverse }: { item: PortfolioItem; index
               className="h-full w-full object-cover object-center"
             />
           </AnimatePresence>
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.18)_55%,rgba(0,0,0,0.3)_100%)]" />
+          {/* gradient overlay removed per design: keep image unobstructed */}
         </motion.div>
 
         <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 text-[10px] uppercase tracking-[0.35em] text-white/90 sm:p-6">
@@ -248,7 +248,7 @@ export default function Portfolio() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen bg-[linear-gradient(135deg,_#f8f5ee_0%,_#f3efe8_100%)] pt-28 text-stone-800 sm:pt-32"
+      className="min-h-screen bg-white pt-28 text-stone-800 sm:pt-32"
     >
       <div className="mx-auto max-w-full px-6 pb-24 sm:px-8 lg:px-12">
         <div className="relative mb-16">

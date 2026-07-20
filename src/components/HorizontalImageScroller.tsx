@@ -73,7 +73,7 @@ export default function HorizontalImageScroller({
             <motion.div
               key={`${image.src}-${index}`}
               initial={{ opacity: 1 }}
-              className="flex-shrink-0 w-[72vw] max-w-[420px] h-[420px] overflow-hidden rounded-[1.6rem] border border-sky-900/10 bg-sky-50 shadow-[0_12px_40px_rgba(15,23,42,0.06)] md:w-[55vw] md:max-w-[520px] md:h-[520px]"
+              className="flex-shrink-0 w-[72vw] max-w-[420px] h-[420px] overflow-hidden rounded-[1.6rem] border border-[#003399]/10 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.06)] md:w-[55vw] md:max-w-[520px] md:h-[520px]"
             >
               <motion.img
                 src={image.src}

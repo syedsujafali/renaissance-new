@@ -8,12 +8,11 @@ export default function About() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen bg-[#f7f9fc] pt-16 text-slate-800"
+      className="min-h-screen bg-white pt-16 text-slate-800"
     >
       <div className="relative mx-auto max-w-full px-0 py-0 lg:px-0 lg:py-0">
         <div className="relative mx-auto max-w-full px-6 py-20 lg:px-16 lg:py-32">
-        <div className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-sky-200/50 blur-3xl" />
-        <div className="pointer-events-none absolute left-10 top-24 h-56 w-56 rounded-full bg-sky-100 blur-3xl" />
+        {/* decorative blue blurs removed per request */}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -21,7 +20,7 @@ export default function About() {
           transition={{ duration: 1, ease: 'easeOut' }}
           className="mb-20 max-w-3xl"
         >
-          <span className="mb-6 block text-sm font-medium uppercase tracking-[0.35em] text-sky-700">Our Legacy</span>
+          <span className="mb-6 block text-sm font-medium uppercase tracking-[0.35em] text-[#003399]">Our Legacy</span>
           <h1 className="font-serif text-5xl leading-tight text-slate-800 md:text-6xl xl:text-7xl">For three decades, we have helped create moments that transcend the ordinary.</h1>
         </motion.div>
 
@@ -30,7 +29,7 @@ export default function About() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.1, delay: 0.2, ease: 'easeOut' }}
-            className="overflow-hidden rounded-[2rem] border border-sky-900/10 bg-white p-0 shadow-[0_24px_80px_rgba(15,23,42,0.08)]"
+            className="overflow-hidden rounded-[2rem] border border-[#003399]/10 bg-white p-0 shadow-[0_24px_80px_rgba(15,23,42,0.08)]"
           >
             <motion.div
               initial={{ opacity: 0, scale: 1.04 }}
@@ -69,8 +68,8 @@ export default function About() {
                 { label: 'Global Partnerships', value: 'Trusted by Fortune 500 clients, associations, sports, and leading nonprofits.' },
                 { label: 'Immersive Execution', value: 'Thoughtful design, technical planning, and guest experience architecture in every detail.' }
               ].map((item) => (
-                <div key={item.label} className="rounded-[1.8rem] border border-sky-900/10 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.04)]">
-                  <p className="mb-3 text-sm uppercase tracking-[0.35em] text-sky-700">{item.label}</p>
+                <div key={item.label} className="rounded-[1.8rem] border border-[#003399]/10 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.04)]">
+                  <p className="mb-3 text-sm uppercase tracking-[0.35em] text-[#003399]">{item.label}</p>
                   <p className="leading-relaxed text-slate-600">{item.value}</p>
                 </div>
               ))}
@@ -94,9 +93,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.9, delay: index * 0.15 }}
-                className="rounded-[2rem] border border-sky-900/10 bg-sky-50 p-8"
-              >
-                <div className="mb-6 h-1 w-16 rounded-full bg-sky-700" />
+                className="rounded-[2rem] border border-[#003399]/10 bg-white p-8"
+                >
+                <div className="mb-6 h-1 w-16 rounded-full bg-[#003399]" />
                 <h3 className="mb-4 font-serif text-2xl text-slate-800">{item.title}</h3>
                 <p className="leading-relaxed text-slate-600">{item.desc}</p>
               </motion.div>
