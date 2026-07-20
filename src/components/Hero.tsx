@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const videoSrc = '/images/0720.mp4';
+const videoSrc = '/images/0720(1).mp4';
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
